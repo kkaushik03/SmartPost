@@ -2,8 +2,12 @@ import React from "react";
 import "./hero.css";
 import Ai_image from "../../../assets/Hero/Ai-image.png";
 import Credit_card from "../../../assets/Hero/Credit_card.png";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
+
+  const navigate = useNavigate();
+
   return (
     <div className="hero-container">
       <div className="Title">
@@ -19,7 +23,7 @@ const Hero = () => {
       </div>
 
       <div className="StartHere">
-        <button>START HERE FOR FREE</button>
+        <button onClick={() => navigate("/signup")}>START HERE FOR FREE</button>
       </div>
 
       <div className="hero-credit-card">

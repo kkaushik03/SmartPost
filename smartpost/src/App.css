@@ -17,3 +17,16 @@ body {
   text-rendering: optimizeSpeed;
   line-height: 1.5;
 }
+
+html, body, #root, .app-wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Make the main content area grow to push the footer down */
+.main-content {
+  flex: 1; /* Allows this section to grow and push the footer down */
+  display: flex;
+  flex-direction: column;
+}

@@ -1,8 +1,11 @@
 import React from "react";
 import "./navbar.css";
 import Logo from "../../../assets/Navbar/Logo.png";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
   const scrollToSection = (id) => {
     const section = document.getElementById(id);
     if (section) {
@@ -19,12 +22,13 @@ const Navbar = () => {
         </div>
 
         <div className="nav-links">
+          <button onClick={() => navigate("/")}>Home</button>
           <button onClick={() => scrollToSection("about")}>About</button>
           <button onClick={() => scrollToSection("features")}>Features</button>
-          <button>Login</button>
+          <button onClick={() => navigate("/login")}> Login</button>
         </div>
 
-        <button className="get-started">Get Started</button>
+        <button className="get-started" onClick={() => navigate("/signup")}>Get Started</button>
       </nav>
     </div>
   );
