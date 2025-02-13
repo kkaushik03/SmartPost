@@ -1,0 +1,60 @@
+.hero-container {
+  text-align: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.Title{
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.TitleInfo{
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.StartHere{
+  display: flex;
+  width: 260px;
+  height: 48px;
+  padding: 8px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #7468FC -26.21%, #A7A0F8 37.83%, #A7A0F8 66.74%, #7468FC 116.78%);
+}
+
+.hero-credit-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.credit-card-note {
+  color: var(--Typography-Gray-Dark-Gray, #696F79);
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.hero-ai_image {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.hero-ai_image img {
+  max-width: 100%;
+  height: auto;
+}
