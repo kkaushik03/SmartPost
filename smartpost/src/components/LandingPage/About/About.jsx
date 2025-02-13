@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import "./about.css";
 
 const about = [
@@ -32,11 +32,11 @@ const about = [
     title: "title",
     description: "Description",
   },
-]
+];
 
 const About = () => {
   return (
-    <section className="about-container">
+    <section id="about" className="about-container">
       <h2> Instant Content Generation with AI</h2>
       <p className="about-subtitle">
         Provide descriptions, Get instant AI Generated Content
@@ -49,13 +49,10 @@ const About = () => {
             <h3>{about.title}</h3>
             <p>{about.description}</p>
           </div>
-      
         ))}
-      
       </div>
-
     </section>
-  )
-}
+  );
+};
 
 export default About;

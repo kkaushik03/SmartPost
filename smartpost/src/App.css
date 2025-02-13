@@ -10,7 +10,8 @@
 }
 
 body {
-  background-color: #c5d8f7;
+  background: var(--Background-Dashboard, #0E0F0D);
+  color: white;
   min-height: 100vh;
   scroll-behavior: smooth;
   text-rendering: optimizeSpeed;

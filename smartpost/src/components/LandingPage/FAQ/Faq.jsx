@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 import "./faq.css";
-import {useState} from "react";
+import { useState } from "react";
 
 const faqData = [
   {
@@ -26,14 +26,13 @@ const faqData = [
 ];
 
 const Faq = () => {
-
   const [openIndex, setOpenIndex] = useState(null);
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
-  
+
   return (
-    <section className="faq-container">
+    <section id="faq" className="faq-container">
       <h2>Everything You Need To Know</h2>
 
       <p className="faq-subtitle">Here Are Some Frequently Asked Questions</p>
@@ -42,25 +41,25 @@ const Faq = () => {
         {faqData.map((faq, index) => (
           <div key={index} className="faq-item">
             <button
-              className= {`faq-question ${openIndex === index ? "active": ""}`}
+              className={`faq-question ${openIndex === index ? "active" : ""}`}
               onClick={() => toggleFAQ(index)}
             >
               <span className="faq-number">{`0${index + 1}`}</span>
               <span className="faq-text">{faq.question}</span>
-              <span className="faq-icon">{openIndex === index ? "↓": "↗"}</span>
+              <span className="faq-icon">
+                {openIndex === index ? "↓" : "↗"}
+              </span>
             </button>
 
-            {openIndex == index &&(
+            {openIndex == index && (
               <div className="faq-answer">{faq.answer}</div>
             )}
-            
           </div>
         ))}
       </div>
-
     </section>
-  )
-}
+  );
+};
 
 export default Faq;
 
