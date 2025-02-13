@@ -6,29 +6,45 @@ import Features from './components/LandingPage/Features/Features'
 import Faq from './components/LandingPage/FAQ/Faq'
 import Container from './components/LandingPage/Container/Container'
 import Footer from './components/LandingPage/Footer/Footer'
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import Login from './components/Login/Login'
 import Signup from './components/Signup/Signup'
 
 function App() {
   return (
     <Router>
-      <NavBar />
-      <Routes>
-        <Route path="/" element={
-          <>
-            <Hero />
-            <About />
-            <Features />
-            <Faq />
-            <Container />
-          </>
-        } />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-      </Routes>
-      <Footer />
+      <MainLayout />
     </Router>
+  );
+}
+
+function MainLayout() {
+  const location = useLocation(); 
+  const hideOnPages = ["/login", "/signup"];
+
+  return (
+    <div className="app-wrapper">
+      {!hideOnPages.includes(location.pathname) && <NavBar />}
+
+      <div className="main-content">
+        <Routes>
+          <Route path="/" element={
+            <>
+              <Hero />
+              <About />
+              <Features />
+              <Faq />
+              <Container />
+            </>
+          } />
+
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+        </Routes>
+      </div>
+
+      {!hideOnPages.includes(location.pathname) && <Footer />}
+    </div>
   );
 }
 
