@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini Chat</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Code Tech Setting up Initial AI</h1>
+        <div class="chatbox">
+            <textarea id="userInput" placeholder="Type your message here..."></textarea>
+            <button onclick="sendMessage()">Send</button>
+        </div>
+        <div id="responseBox"></div>
+    </div>
+
+    <script>
+        async function sendMessage() {
+            const userMessage = document.getElementById("userInput").value;
+            if (!userMessage) return alert("Please enter a message!");
+
+            const responseBox = document.getElementById("responseBox");
+            responseBox.innerHTML = "<p>Loading...</p>"; 
+
+            try {
+                const response = await fetch("http://127.0.0.1:5000/chat", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ message: userMessage })
+                });
+
+                const data = await response.json();
+                responseBox.innerHTML = `<p><strong>AI:</strong> ${data.response}</p>`;
+            } catch (error) {
+                responseBox.innerHTML = "<p>Error fetching response.</p>";
+            }
+        }
+    </script>
+</body>
+</html>
