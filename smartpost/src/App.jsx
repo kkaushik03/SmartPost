@@ -9,6 +9,7 @@ import Footer from './components/LandingPage/Footer/Footer'
 import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import Login from './components/Login/Login'
 import Signup from './components/Signup/Signup'
+import Chatbot from './components/Chatbot/Chatbot'
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function MainLayout() {
 
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/chatbot" element={<Chatbot/>}/>
         </Routes>
       </div>
 

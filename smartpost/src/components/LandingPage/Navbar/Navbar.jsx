@@ -26,6 +26,7 @@ const Navbar = () => {
           <button onClick={() => scrollToSection("about")}>About</button>
           <button onClick={() => scrollToSection("features")}>Features</button>
           <button onClick={() => navigate("/login")}> Login</button>
+          <button onClick={() => navigate("/chatbot")}> Chatbot</button>
         </div>
 
         <button className="get-started" onClick={() => navigate("/signup")}>Get Started</button>
