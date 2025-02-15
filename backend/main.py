@@ -6,7 +6,7 @@ app = Flask(__name__)
 CORS(app)  # Allow frontend to communicate with Flask backend
 
 # Configure Gemini API (Replace 'YOUR_API_KEY' with actual API key)
-genai.configure(api_key="AIzaSyCBlNa84mKUnQpFhP0SYXTFwugDYuA8KOw")
+genai.configure(api_key="API KEY")
 
 def chat_with_gemini(user_message):
     """Send user input to Gemini AI and return response."""
