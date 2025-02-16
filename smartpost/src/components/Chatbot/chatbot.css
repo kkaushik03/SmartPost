@@ -17,21 +17,21 @@
 
 /* Parent: hold all messages  */
 .chat-messages {
-  flex: 1;
-  padding: 25px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  max-height: 600px;
-  overflow-y: auto;
+    flex: 1;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: 600px;
+    overflow-y: auto;
 }
 
 /* Child: individual message between bot and user  */
 .chat-message {
-  max-width: 75%;
-  padding: 15px;
-  font-size: 18px;
-  border-radius: 10px;
+    max-width: 75%;
+    padding: 15px;
+    font-size: 18px;
+    border-radius: 10px;
 }
 
 .chat-message.user {
@@ -49,8 +49,8 @@
 }
 
 .chat-input {
-  display: flex;
-  padding: 15px;
+    display: flex;
+    padding: 15px;
 }
 
 .chat-input input {
