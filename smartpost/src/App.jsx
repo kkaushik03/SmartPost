@@ -21,7 +21,7 @@ function App() {
 
 function MainLayout() {
   const location = useLocation(); 
-  const hideOnPages = ["/login", "/signup"];
+  const hideOnPages = ["/login", "/signup", "/chatbot"];
 
   return (
     <div className="app-wrapper">
