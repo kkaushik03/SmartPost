@@ -23,7 +23,7 @@ const Hero = () => {
       </div>
 
       <div className="StartHere">
-        <button onClick={() => navigate("/signup")}>START HERE FOR FREE</button>
+        <button onClick={() => navigate("/chatbot")}>START HERE FOR FREE</button>
       </div>
 
       <div className="hero-credit-card">
