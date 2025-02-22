@@ -1,6 +1,7 @@
 import React from "react";
 import "./footer.css";
 import Logo from "../../../assets/Navbar/Logo.png";
+import { Link } from "react-router-dom"
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -16,25 +17,25 @@ const Footer = () => {
         <div className="footer-links">
           <div className="footer-column">
             <h4>Resources</h4>
-            <a href="#">Updates</a>
-            <a href="#">Contact</a>
+            <Link to="/updates">Updates</Link>
+            <Link to="/contact">Contact</Link>
           </div>
 
           <div className="footer-column">
             <h4>Explore</h4>
-            <a href="#features">Features</a>
-            <a href="#">CodeTech AI</a>
+            <Link to="/features">Features</Link>
+            <Link to="/">CodeTech AI</Link>
           </div>
 
           <div className="footer-column">
             <h4>Company</h4>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms and Conditions</a>
+            <Link to="/privacy_policy">Privacy Policy</Link>
+            <Link to="/terms_conditions">Terms and Conditions</Link>
           </div>
 
           <div className="footer-column">
             <h4>Others</h4>
-            <a href="#faq">FAQs</a>
+            <Link to="/faq">FAQs</Link>
           </div>
         </div>
       </div>

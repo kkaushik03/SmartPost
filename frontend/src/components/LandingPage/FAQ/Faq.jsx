@@ -51,7 +51,7 @@ const Faq = () => {
               </span>
             </button>
 
-            {openIndex == index && (
+            {openIndex === index && (
               <div className="faq-answer">{faq.answer}</div>
             )}
           </div>
@@ -62,5 +62,3 @@ const Faq = () => {
 };
 
 export default Faq;
-
-// ↓ ↗
