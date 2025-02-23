@@ -1,6 +1,6 @@
 .chatbot-container {
   width: 1000px;
-  height: 700px; 
+  height: 900px; 
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -32,6 +32,8 @@
     padding: 15px;
     font-size: 18px;
     border-radius: 10px;
+    word-wrap: break-word;
+    white-space: pre-wrap;
 }
 
 .chat-message.user {
@@ -43,32 +45,61 @@
 
 .chat-message.bot {
     border-radius: 16px;
-    border: 1px solid var(--Glass-Morphism-Glass-Stroke, rgba(134, 146, 166, 0.20));
+    border: 2px solid var(--Glass-Morphism-Glass-Stroke, rgba(134, 146, 166, 0.20));
     background: var(--Glass-Morphism-Glass-White, rgba(255, 255, 255, 0.10));
     align-self: flex-start;
 }
 
-.chat-input {
-    display: flex;
-    padding: 15px;
+.chat-message.bot ul, .chat-message.bot ol {
+    padding-left: 20px;
 }
 
-.chat-input input {
+.chat-message.bot code {
+    padding: 4px 6px; 
+    border-radius: 5px;
+    font-family:'Courier New', Courier, monospace;
+    background: var(--Typography-Gray-Dark-Gray, #696F79);
+}
+.chat-message.bot pre {
+    background: var(--Typography-Gray-Dark-Gray, #696F79);
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+.chat-holder {
+    display: flex;
+    padding: 15px;
+    align-items: center;
+}
+
+.chat-input {
     flex: 1;
     padding: 12px;
     font-size: 18px;
     border: none;
-    border-radius: 12px 0px 0px 12px;
+    border-radius: 25px;
     background: #3B3D40;
     color: white;
+    outline: none;
+    resize: none;
+    overflow-y: auto;
+    min-height: 30px;
+    max-height: 120px; /* size that the chatbot can goes up to - prevent from going to large */
 }
 
-.chat-input button {
+.chat-holder button {
     background: var(--Buttons-Primary, #A7A0F8);
     border: none;
-    padding: 12px 18px;
+    padding: 8px 14px;
     font-size: 18px; 
-    border-radius: 6px;
+    border-radius: 10px;
     cursor: pointer;
     margin-left: 10px;
+    flex-shrink: 0;
+    height: 25px;
+    min-width: 60px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
 }

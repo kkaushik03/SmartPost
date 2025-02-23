@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import "./chatbot.css";
 
 const Chatbot = () => {
@@ -25,9 +26,11 @@ const Chatbot = () => {
       });
 
       const data = await response.json();
+      const bot_reply = data.response.replace(/\n/g, "\n");
+      console.log(bot_reply)
 
       // Add the bot's response to the messages state
-      setMessages(prev => [...prev, { text: data.response, sender: "bot" }]);
+      setMessages(prev => [...prev, { text: bot_reply, sender: "bot" }]);
     } catch (error) {
       // Handle any errors
       setMessages(prev => [...prev, { text: "Error fetching response.", sender: "bot" }]);
@@ -44,18 +47,32 @@ const Chatbot = () => {
       <div className="chat-messages">
         {messages.map((msg, index) => (
           <div key={index} className={`chat-message ${msg.sender}`}>
-            <p>{msg.text}</p>
+            {msg.sender === "bot" ? (
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>{msg.text}</ReactMarkdown>
+            ) : (
+              <p>{msg.text}</p>
+            )}
           </div>
         ))}
       </div>
 
-      <div className="chat-input">
-        <input
-          type="text"
+      <div className="chat-holder">
+        <textarea
+          className="chat-input"
           placeholder="Message CodeTech..."
           value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyPress={(e) => e.key === "Enter" && sendMessage()}
+          onChange={(e) => {
+            setInput(e.target.value);
+            // Allow the height of the chat when pasting the text
+            e.target.style.height = "auto";
+            e.target.style.height = `${e.target.scrollHeight}px`;
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && !e.shiftKey) {
+              e.preventDefault();
+              sendMessage();
+            }
+          }}
         />
         <button onClick={sendMessage}>Send</button>
       </div>
