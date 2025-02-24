@@ -15,7 +15,8 @@ genai.configure(api_key=os.getenv('GEMINI_API_KEY'))
 def chat_with_gemini(user_message):
     """Send user input to Gemini AI and return response."""
     model = genai.GenerativeModel("gemini-pro")
-    response = model.generate_content(f"You are a helpful coding assistant, please help review this code. {user_message}")
+    # response = model.generate_content(f"You are a helpful coding assistant, please help review this code based on readability, maintainability, efficientcy, testability, sustainability, and adaptability. {user_message}")
+    response = model.generate_content(f"You are a helpful coding assistant, please help review this code based on Google Coding Style Guide. {user_message}")
     return response.text if response else "Sorry, I couldn't understand."
 
 @app.route("/")
