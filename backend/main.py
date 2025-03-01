@@ -8,7 +8,7 @@ import re
 load_dotenv()
 
 # Set up Gemini API key
-GEMINI_API_KEY = "AIzaSyCWSnVxKsmtEBJqHq_0C_eqTG-xu8JN67Y"
+GEMINI_API_KEY = "GEMINI_API_KEY"
 if GEMINI_API_KEY == "GEMINI_API_KEY":
     print("Error: GEMINI_API_KEY environment variable is not set.")
     sys.exit(1)
