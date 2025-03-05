@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Route, Routes, useLocation } from "react-route
 import Login from './components/Login/Login'
 import Signup from './components/Signup/Signup'
 import Chatbot from './components/Chatbot/Chatbot'
+import FileUpload from './components/File/FileUpload'
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
 
 function MainLayout() {
   const location = useLocation(); 
-  const hideOnPages = ["/login", "/signup", "/chatbot"];
+  const hideOnPages = ["/login", "/signup", "/fileupload"];
 
   return (
     <div className="app-wrapper">
@@ -41,7 +42,7 @@ function MainLayout() {
 
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/chatbot" element={<Chatbot/>}/>
+          <Route path="/fileupload" element={<FileUpload/>}/>
         </Routes>
       </div>
 
