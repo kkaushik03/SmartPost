@@ -1,57 +1,151 @@
-from flask import Flask, request, jsonify
-from flask_cors import CORS
-import google.generativeai as genai
-from dotenv import load_dotenv
 import os
-from waitress import serve
 
-app = Flask(__name__)
-CORS(app)  # Allow frontend to communicate with Flask backend
+import re
+
+from flask import Flask, request, jsonify
+
+from flask_cors import CORS
+
+import google.generativeai as genai
+
+from dotenv import load_dotenv
+
+
+
+# Load environment variables
 
 load_dotenv()
 
-# Assuming genai is a module you're using, configure it with the API key
-genai.configure(api_key=os.getenv('GEMINI_API_KEY'))
 
-def chat_with_gemini(user_message):
-    """Send user input to Gemini AI and return response."""
-    model = genai.GenerativeModel("gemini-pro")
-    # response = model.generate_content(f"You are a helpful coding assistant, please help review this code based on readability, maintainability, efficientcy, testability, sustainability, and adaptability. {user_message}")
-    response = model.generate_content(f"You are a helpful coding assistant, please help review this code based on Google Coding Style Guide. {user_message}")
-    return response.text if response else "Sorry, I couldn't understand."
 
-@app.route("/")
-def home():
-    return "<h1>Flask Server is Running!</h1><p>Send a POST request to <b>/chat</b> to interact with AI.</p>"
+# Set up Gemini API key
 
-UPLOAD_FOLDER = "uploads"  # Folder where files are stored
-app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
-@app.route("/chat", methods=["POST"])
-def chat():
-    data = request.json
-    if not data or "file_name" not in data:
-        return jsonify({"error": "Invalid request, 'file_name' field required"}), 400
+if not GEMINI_API_KEY:
 
-    file_name = data["file_name"]
-    file_path = os.path.join(app.config["UPLOAD_FOLDER"], file_name)
+    raise ValueError("Error: GEMINI_API_KEY environment variable is not set.")
 
-    # Check if the file exists
-    if not os.path.exists(file_path):
-        return jsonify({"error": "File not found"}), 404
+
+
+# Configure Google Gemini AI
+
+genai.configure(api_key=GEMINI_API_KEY)
+
+
+
+# Initialize Flask app
+
+app = Flask(__name__)
+
+CORS(app)  # Enable CORS to allow frontend communication
+
+
+
+# Allowed file extensions
+
+ALLOWED_EXTENSIONS = {"py"}
+
+
+
+def allowed_file(filename):
+
+    """Check if the uploaded file has an allowed extension."""
+    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+
+@app.route("/upload", methods=["POST"])
+def upload_file():
+
+    """Handles file upload from the frontend and grades it using Gemini AI."""
+
+    if "file" not in request.files:
+        return jsonify({"error": "No file part"}), 400
+
+
+
+    file = request.files["file"]
+
+    
+
+    if file.filename == "":
+        return jsonify({"error": "No selected file"}), 400
+
+
+
+    if not allowed_file(file.filename):
+        return jsonify({"error": "Unsupported file type. Please upload a Python (.py) file."}), 400
+
+
 
     try:
-        # Read file content
-        with open(file_path, "r", encoding="utf-8") as file:
-            file_content = file.read()
+        # Read file contents
+        file_content = file.read().decode("utf-8")
 
-        # Process with AI
-        ai_response = chat_with_gemini(file_content)
 
-        return jsonify({"response": ai_response})
+
+        # Grade the uploaded code
+
+        grading_result = grade_code(file_content, file.filename)
+
+
+
+        return jsonify({"grading_result": grading_result})
+
+    
+    except Exception as e:
+
+        return jsonify({"error": f"An error occurred: {str(e)}"}), 500
+
+
+
+def grade_code(file_content, file_name):
+
+    """Send the Python code to Gemini AI for evaluation."""
+
+    prompt = f"""
+correct and and grade code  write the file name first
+{file_name}
+and content in 
+{file_content}
+
+   """
+
+
+
+    try:
+
+        model = genai.GenerativeModel("gemini-2.0-flash")
+
+        response = model.generate_content([{"text": prompt}])
+
+
+
+        grading_result = response.text if response else "No response received."
+
+
+
+        # Clean up the response (Remove unwanted Markdown artifacts)
+
+        cleaned_content = re.sub(r"", "", grading_result)
+
+        cleaned_content = re.sub(r"", "", cleaned_content)
+
+
+
+        return cleaned_content
+
+
 
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+
+        return f"Error in API call: {e}"
+
+
 
 if __name__ == "__main__":
-    serve(app, host="0.0.0.0", port=5000)
+
+    port = int(os.environ.get("PORT", 5000))  # Allow setting port dynamically
+
+    app.run(host="0.0.0.0", port=port, debug=True)
