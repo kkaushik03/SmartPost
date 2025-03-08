@@ -1,3 +1,5 @@
+// src/components/FileUpload/FileUpload.jsx
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import FileUploadImage from "../../assets/File/Upload _icon.png";
@@ -5,23 +7,37 @@ import Logo from "../../assets/Navbar/Logo.png";
 import './FileUpload.css';
 
 // Icon imports
-import { FaTrash } from "react-icons/fa";
 import { MdOutlineClose } from "react-icons/md";
 
+// Helper to remove extra "Copy Code" buttons from the HTML
+function removeExtraCopyButtons(htmlContent) {
+  let found = false;
+  return htmlContent.replace(/<button[^>]*>\s*Copy Code\s*<\/button>/gi, (match) => {
+    if (!found) {
+      found = true;
+      return match; // Keep the first one
+    }
+    // Remove any subsequent "Copy Code" buttons
+    return '';
+  });
+}
+
 const FileUpload = () => {
-  const [filesUpload, setFilesUpload] = useState([]); // Files in queue
+  const [filesUpload, setFilesUpload] = useState([]);  // Files in queue
+  const [fileResults, setFileResults] = useState({});  // Store grading results per file
+  const [reportUrls, setReportUrls] = useState({});    // Store generated report URLs
   const [error, setError] = useState("");
-  const [gradingResult, setGradingResult] = useState(""); // Store grading response
   const [uploading, setUploading] = useState(false);
-  const [progress, setProgress] = useState(0); // Track upload progress
+  const [progress, setProgress] = useState(0);         // Track upload progress
 
   // Allowed file types
-  const allowedTypes = [".py"];
+  const allowedTypes = [".py", ".js", ".java", ".c", ".cpp", ".rb", ".php", ".html"];
 
   const validateFile = (file) => {
     const fileType = file.name.slice(file.name.lastIndexOf('.')).toLowerCase();
     if (!allowedTypes.includes(fileType)) {
-      return `File type "${file.name}" is not supported, please upload a Python (.py) file.`;
+      return `File type "${file.name}" is not supported. 
+Allowed types are: ${allowedTypes.join(', ')}.`;
     }
     return null;
   };
@@ -41,13 +57,27 @@ const FileUpload = () => {
       return;
     }
 
-    setFilesUpload((prevFiles) => [selectedFile, ...prevFiles].slice(0, 5)); // Add the newest file at the top, keep max 5
+    setFilesUpload((prevFiles) => [selectedFile, ...prevFiles].slice(0, 5));
     setError("");
-    setGradingResult(""); // Clear previous results
   };
 
   const removeFileFromQueue = (fileName) => {
     setFilesUpload((prevFiles) => prevFiles.filter((file) => file.name !== fileName));
+
+    // Also remove its result and report URL (if any)
+    setFileResults((prevResults) => {
+      const updatedResults = { ...prevResults };
+      delete updatedResults[fileName];
+      return updatedResults;
+    });
+    setReportUrls((prevUrls) => {
+      const updatedUrls = { ...prevUrls };
+      if (updatedUrls[fileName]) {
+        URL.revokeObjectURL(updatedUrls[fileName]);
+        delete updatedUrls[fileName];
+      }
+      return updatedUrls;
+    });
   };
 
   const uploadingProgress = async () => {
@@ -61,8 +91,11 @@ const FileUpload = () => {
     setError("");
 
     const formData = new FormData();
-    formData.append("file", filesUpload[0]); // ✅ Process the most recent file first
+    // Process only the most recent file (index 0 in our array)
+    const currentFile = filesUpload[0];
+    formData.append("file", currentFile);
 
+    // Simulate progress (for demo purposes)
     let progressVal = 0;
     const interval = setInterval(() => {
       progressVal += 10;
@@ -70,7 +103,7 @@ const FileUpload = () => {
       if (progressVal >= 100) {
         clearInterval(interval);
       }
-    }, 500); // Update progress every 500ms
+    }, 500);
 
     try {
       const response = await fetch("http://127.0.0.1:5001/upload", {
@@ -81,7 +114,24 @@ const FileUpload = () => {
       const data = await response.json();
 
       if (response.ok) {
-        setGradingResult(data.grading_result);
+        // Store the raw HTML if needed
+        setFileResults((prevResults) => ({
+          ...prevResults,
+          [currentFile.name]: data.grading_result,
+        }));
+
+        // Remove extra "Copy Code" buttons
+        const cleanedHTML = removeExtraCopyButtons(data.grading_result);
+
+        // Create a Blob from the cleaned HTML and generate an object URL
+        const blob = new Blob([cleanedHTML], { type: "text/html" });
+        const objectUrl = URL.createObjectURL(blob);
+
+        // Save that URL so we can open it in a new tab
+        setReportUrls((prevUrls) => ({
+          ...prevUrls,
+          [currentFile.name]: objectUrl,
+        }));
       } else {
         setError(data.error || "Upload failed.");
       }
@@ -104,22 +154,29 @@ const FileUpload = () => {
       </div>
 
       <div className="fileupload-content">
-        <h2 className="fileupload-header">Upload Python Code</h2>
+        <h2 className="fileupload-header">Upload Your Code</h2>
 
         <div className="fileupload-background">
           <div className="fileupload-image">
-            <img src={FileUploadImage} alt="" />
+            <img src={FileUploadImage} alt="Upload Icon" />
           </div>
 
           <p className="fileupload-instruction">
             Drag & Drop or{" "}
             <span className="fileupload-browse">
               Browse
-              <input type="file" onChange={handleFileInput} className="fileupload-input" />
+              <input
+                type="file"
+                onChange={handleFileInput}
+                className="fileupload-input"
+              />
             </span>
           </p>
 
-          <p className="fileupload-formats-text">Supported format: .py (Python)</p>
+          {/* Update this text to reflect all allowed file types */}
+          <p className="fileupload-formats-text">
+            Supported formats: {allowedTypes.join(', ')}
+          </p>
         </div>
 
         {error && <p className="fileupload-error">{error}</p>}
@@ -128,9 +185,28 @@ const FileUpload = () => {
           <div className="fileupload-queued">
             <h3>Files Selected ({filesUpload.length}/5):</h3>
             {filesUpload.map((file, index) => (
-              <div key={file.name} className={`fileupload-queued-file ${index === 0 ? "latest-file" : ""}`}>
+              <div
+                key={file.name}
+                className={`fileupload-queued-file ${index === 0 ? "latest-file" : ""}`}
+              >
                 <span>{file.name}</span>
-                <button className="fileupload-cancel-icon" onClick={() => removeFileFromQueue(file.name)}>
+
+                {/* Show a "Result Page" link if we have a generated URL */}
+                {reportUrls[file.name] && (
+                  <a
+                    href={reportUrls[file.name]}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="fileupload-result-link"
+                  >
+                    Result Page
+                  </a>
+                )}
+
+                <button
+                  className="fileupload-cancel-icon"
+                  onClick={() => removeFileFromQueue(file.name)}
+                >
                   <MdOutlineClose />
                 </button>
               </div>
@@ -138,7 +214,7 @@ const FileUpload = () => {
           </div>
         )}
 
-        {/* Upload Progress Circle */}
+        {/* Progress Circle */}
         {uploading && (
           <div className="progress-circle-container">
             <svg className="progress-circle" viewBox="0 0 100 100">
@@ -158,16 +234,13 @@ const FileUpload = () => {
           </div>
         )}
 
-        <button className="fileupload-button" onClick={uploadingProgress} disabled={uploading}>
+        <button
+          className="fileupload-button"
+          onClick={uploadingProgress}
+          disabled={uploading}
+        >
           {uploading ? `Uploading... ${progress}%` : "Upload & Grade"}
         </button>
-
-        {gradingResult && (
-          <div className="fileupload-result">
-            <h3>Grading Report:</h3>
-            <div dangerouslySetInnerHTML={{ __html: gradingResult }} />
-          </div>
-        )}
       </div>
     </div>
   );
