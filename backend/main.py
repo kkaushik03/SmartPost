@@ -105,7 +105,7 @@ def grade_code(file_content, file_name):
     """Send the Python code to Gemini AI for evaluation."""
 
     prompt = f"""
-correct and and grade code  write the file name first
+correct and and grade code  write the file name first. MAKE SURE THE REPORT IS SAVED IN HTML format 
 {file_name}
 and content in 
 {file_content}
