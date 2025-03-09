@@ -137,5 +137,4 @@ Code:
         return f"Error in API call: {e}"
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))  # Allow setting port dynamically
-    app.run(host="0.0.0.0", port=port, debug=True)
+    app.run(host="0.0.0.0", debug=True, port=80)
