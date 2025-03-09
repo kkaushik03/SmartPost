@@ -4,6 +4,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import google.generativeai as genai
 from dotenv import load_dotenv
+from waitress import serve
 
 # Load environment variables
 load_dotenv()
@@ -137,5 +138,9 @@ Code:
         return f"Error in API call: {e}"
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))  # Allow setting port dynamically
-    app.run(host="0.0.0.0", port=port, debug=True)
+    # app.run(host="0.0.0.0", debug=True, port=80) use this when running locally
+    # local_ip = os.popen("ipconfig getifaddr en0").read().strip() or "localhost"
+    # print(f"🔗 Network:  http://{local_ip}:80")  # Prints actual IP for LAN access
+
+    port = int(os.environ.get("PORT", 5000))  # Render sets the PORT env variable
+    serve(app, host = "0.0.0.0", port=port)
