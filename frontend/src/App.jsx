@@ -11,11 +11,13 @@ import Login from './components/Login/Login'
 import Signup from './components/Signup/Signup'
 import Chatbot from './components/Chatbot/Chatbot'
 import FileUpload from './components/File/FileUpload'
+import Starfield from './components/Starfield/Starfield'
 
 function App() {
   return (
     <Router>
       <MainLayout />
+      <Starfield />
     </Router>
   );
 }
