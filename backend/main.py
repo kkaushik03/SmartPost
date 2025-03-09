@@ -141,4 +141,6 @@ if __name__ == "__main__":
     # app.run(host="0.0.0.0", debug=True, port=80) use this when running locally
     # local_ip = os.popen("ipconfig getifaddr en0").read().strip() or "localhost"
     # print(f"🔗 Network:  http://{local_ip}:80")  # Prints actual IP for LAN access
+
+    port = int(os.environ.get("PORT", 5000))  # Render sets the PORT env variable
     serve(app, host = "0.0.0.0", port=port)
