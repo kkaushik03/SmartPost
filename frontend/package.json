@@ -13,7 +13,8 @@
     "react-router-dom": "^7.1.5",
     "react-scripts": "5.0.1",
     "remark-gfm": "^4.0.1",
-    "starfield": "^0.0.1"
+    "starfield": "^0.0.1",
+    "three": "^0.174.0"
   },
   "scripts": {
     "start": "react-scripts start",

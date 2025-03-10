@@ -2,21 +2,24 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 
 export default function Starfield(props) {
-  const {
-    speedFactor = 0.03,
-    backgroundColor = "#0E0D0D",
-    starColor = [116, 104, 252],
-    starCount = 5000,
-    starSize = 1.5,
-  } = props;
+    // Values for customization
+    const {
+        speedFactor = 0.05,
+        backgroundColor = "#0E0D0D",
+        starColor = [116, 104, 252],
+        starCount = 5000,
+        starSize = 1.5,
+    } = props;
 
-  useEffect(() => {
+    useEffect(() => {
     const canvas = document.getElementById("starfield");
-
+    
+    // Check for canvas element exists and get 2D rendering
     if (canvas) {
         const c = canvas.getContext("2d");
         
         if (c) {
+            // Initialize width and height and set it to match with window's dimension
             let w = window.innerWidth;
             let h = window.innerHeight;
 
@@ -31,13 +34,14 @@ export default function Starfield(props) {
                 setCanvasExtents();
             };
 
+            // Create array of star with random positions
             const makeStars = (count) => {
                 const out = [];
                 for (let i = 0; i < count; i++) {
                     const s = {
                         x: Math.random() * 1600 - 800, // Random x position
                         y: Math.random() * 900 - 450, // Random y position
-                        z: Math.random() * 1000, // Random dept
+                        z: Math.random() * 1000, // Random depth
                     };
                     out.push(s)
                 }
@@ -50,22 +54,15 @@ export default function Starfield(props) {
                 c.fillStyle = backgroundColor;
                 c.fillRect(0, 0, canvas.width, canvas.height);
             };
-
+            
+            // Draw star on canvas with a given brightness
             const putPixel = (x, y, brightness) => {
-                const rgb =
-                  "rgba(" +
-                  starColor[0] +
-                  "," +
-                  starColor[1] +
-                  "," +
-                  starColor[2] +
-                  "," +
-                  brightness +
-                  ")";
+                const rgb = "rgba(" + starColor[0] + "," + starColor[1] + "," + starColor[2] + "," + brightness + ")";
                 c.fillStyle = rgb;
                 c.fillRect(x, y, starSize, starSize);
             };   
             
+            // Move the stars by given distance along the z-axis
             const moveStars = (distance) => {
                 const count = stars.length;
                 for (let i = 0; i < count; i ++) {
@@ -76,13 +73,17 @@ export default function Starfield(props) {
                     };
                 };
             };
-
+            
+            // Store prev animation frame's timestamp
             let prevTime;
+
+            // Initialize animation loop
             const init = (time) => {
                 prevTime = time;
                 requestAnimationFrame(tick);
             };
-
+            
+            // Handle animation frame
             const tick = (time) => {
                 let elapsed = time - prevTime;
                 prevTime = time; 
@@ -90,18 +91,21 @@ export default function Starfield(props) {
                 moveStars(elapsed * speedFactor);
 
                 clear();
-
+                
+                // Center x, y coordinate
                 const cx = w / 2;
                 const cy = h / 2;
 
                 const count = stars.length;
 
+                // Loop through each star and draw it on canvas
                 for (let i = 0; i  < count; i++) {
                     const star = stars[i];
 
                     const x = cx + star.x / (star.z * 0.001);
                     const y = cy + star.y / (star.z * 0.001);
 
+                    // Skip stars that are out of bounds
                     if (x < 0 || x >= w || y < 0 || y >= h) {
                         continue;
                     }
@@ -113,7 +117,8 @@ export default function Starfield(props) {
                 }
                 requestAnimationFrame(tick);
             };
-
+            
+            // Start animation loop
             requestAnimationFrame(init);
 
             window.addEventListener("resize", function() {
