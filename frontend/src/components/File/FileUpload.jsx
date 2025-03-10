@@ -8,6 +8,7 @@ import './FileUpload.css';
 
 // Icon imports
 import { MdOutlineClose } from "react-icons/md";
+import { FaTrash } from "react-icons/fa"
 
 // Helper to remove extra "Copy Code" buttons from the HTML
 function removeExtraCopyButtons(htmlContent) {
@@ -24,11 +25,13 @@ function removeExtraCopyButtons(htmlContent) {
 
 const FileUpload = () => {
   const [filesUpload, setFilesUpload] = useState([]);  // Files in queue
+  const [filesUploaded, setFilesUploaded] = useState([]);
   const [fileResults, setFileResults] = useState({});  // Store grading results per file
   const [reportUrls, setReportUrls] = useState({});    // Store generated report URLs
   const [error, setError] = useState("");
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);         // Track upload progress
+  const [isDragging, setIsDragging] = useState(false); 
 
   // Allowed file types
   const allowedTypes = [".py", ".js", ".java", ".c", ".cpp", ".rb", ".php", ".html"];
@@ -36,28 +39,48 @@ const FileUpload = () => {
   const validateFile = (file) => {
     const fileType = file.name.slice(file.name.lastIndexOf('.')).toLowerCase();
     if (!allowedTypes.includes(fileType)) {
-      return `File type "${file.name}" is not supported. 
-Allowed types are: ${allowedTypes.join(', ')}.`;
+      return `File type "${file.name}" is not supported. Allowed types are: ${allowedTypes.join(', ')}.`;
     }
     return null;
   };
 
-  const handleFileInput = (e) => {
-    const selectedFile = e.target.files[0];
-    if (!selectedFile) return;
+  // Handle drag over event
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
 
-    if (filesUpload.length >= 5) {
-      setError("You can only upload up to 5 files.");
+  // Handle drag leave event
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const droppedFiles = Array.from(e.dataTransfer.files);
+    if (droppedFiles.length > 0) {
+      handleFileInput({ target: { files: droppedFiles } });
+    }
+  };
+
+  const handleFileInput = (e) => {
+    const selectedFiles = Array.from(e.target.files || []);
+    if (selectedFiles.length === 0) return;
+
+    if (filesUpload.length >= 1 || filesUploaded.length >= 5) {
+      setError("You can only upload up to 1 file at a time or 5 files total.");
       return;
     }
 
-    const validationError = validateFile(selectedFile);
+    const validationError = validateFile(selectedFiles[0]);
     if (validationError) {
       setError(validationError);
       return;
     }
 
-    setFilesUpload((prevFiles) => [selectedFile, ...prevFiles].slice(0, 5));
+    setFilesUpload((prevFiles) => [selectedFiles[0], ...prevFiles].slice(0, 1));
     setError("");
   };
 
@@ -80,9 +103,32 @@ Allowed types are: ${allowedTypes.join(', ')}.`;
     });
   };
 
+  // Remove file from uploaded list
+  const removeFileUploaded = (fileName) => {
+    setFilesUploaded((prev) => prev.filter((file) => file.name !== fileName));
+    setFileResults((prev) => {
+      const updated = { ...prev };
+      delete updated[fileName];
+      return updated;
+    });
+    setReportUrls((prev) => {
+      const updated = { ...prev };
+      if (updated[fileName]) {
+        URL.revokeObjectURL(updated[fileName]);
+        delete updated[fileName];
+      }
+      return updated;
+    });
+  };
+
   const uploadingProgress = async () => {
     if (filesUpload.length === 0) {
       setError("Please choose at least one file to upload.");
+      return;
+    }
+
+    if (filesUploaded.length >= 5) {
+      setError("You have reached the limit of 5 uploaded files.");
       return;
     }
 
@@ -127,11 +173,15 @@ Allowed types are: ${allowedTypes.join(', ')}.`;
         const blob = new Blob([cleanedHTML], { type: "text/html" });
         const objectUrl = URL.createObjectURL(blob);
 
+        setFileResults((prev) => ({ ...prev, [currentFile.name]: data.grading_result}))
+
         // Save that URL so we can open it in a new tab
         setReportUrls((prevUrls) => ({
           ...prevUrls,
           [currentFile.name]: objectUrl,
         }));
+
+        setFilesUploaded((prev) => [...prev, currentFile]); // Move to uploaded 
       } else {
         setError(data.error || "Upload failed.");
       }
@@ -141,6 +191,7 @@ Allowed types are: ${allowedTypes.join(', ')}.`;
       clearInterval(interval);
       setUploading(false);
       setProgress(100);
+      setFilesUpload((prev) => prev.slice(1));
     }
   };
 
@@ -156,7 +207,11 @@ Allowed types are: ${allowedTypes.join(', ')}.`;
       <div className="fileupload-content">
         <h2 className="fileupload-header">Upload Your Code</h2>
 
-        <div className="fileupload-background">
+        <div className={`fileupload-background ${isDragging ? 'dragging' : ''}`}
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
+        >
           <div className="fileupload-image">
             <img src={FileUploadImage} alt="Upload Icon" />
           </div>
@@ -191,18 +246,6 @@ Allowed types are: ${allowedTypes.join(', ')}.`;
               >
                 <span>{file.name}</span>
 
-                {/* Show a "Result Page" link if we have a generated URL */}
-                {reportUrls[file.name] && (
-                  <a
-                    href={reportUrls[file.name]}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="fileupload-result-link"
-                  >
-                    Result Page
-                  </a>
-                )}
-
                 <button
                   className="fileupload-cancel-icon"
                   onClick={() => removeFileFromQueue(file.name)}
@@ -213,6 +256,36 @@ Allowed types are: ${allowedTypes.join(', ')}.`;
             ))}
           </div>
         )}
+
+        {filesUploaded.length > 0 && (
+          <div className="fileupload-uploaded">
+            <h3>Uploaded - {filesUploaded.length}/5 files</h3>
+            {filesUploaded.map((file) => (
+              <div key={file.name} className="fileupload-uploaded-file">
+                <span>{file.name}</span>
+                <div className="fileupload-uploaded-info">
+                  {reportUrls[file.name] && (
+                    <a
+                      href={reportUrls[file.name]}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="fileupload-result-link"
+                    >
+                      Result
+                    </a>
+                  )}
+                  <button
+                    className="fileupload-remove-icon"
+                    onClick={() => removeFileUploaded(file.name)}
+                  >
+                    <FaTrash />
+                  </button>
+
+                </div>
+              </div>
+            ))}
+          </div>
+        )}  
 
         {/* Progress Circle */}
         {uploading && (
@@ -237,10 +310,10 @@ Allowed types are: ${allowedTypes.join(', ')}.`;
         <button
           className="fileupload-button"
           onClick={uploadingProgress}
-          disabled={uploading}
+          disabled={uploading || filesUpload.length === 0 || filesUploaded.length >= 5}
         >
-          {uploading ? `Uploading... ${progress}%` : "Upload & Grade"}
-        </button>
+          {uploading ? `Generating report... ${progress}%` : "Upload File"}
+        </button> 
       </div>
     </div>
   );
