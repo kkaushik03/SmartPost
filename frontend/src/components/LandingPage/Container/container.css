@@ -4,23 +4,53 @@
   display: flex;
   align-items: center;
   flex-direction: column;
+  padding: 0 5%;
 }
-.SignupTitle{
+
+.SignupTitle {
   font-size: 30px;
   padding-bottom: 15px;
 }
 
-.SignupDescription{
+.SignupDescription {
   color: var(--Typography-Gray-Medium-Gray, #8692A6);
-  width: 890px;
+  width: 100%;
+  max-width: 890px;
   padding-bottom: 15px;
+  font-size: 16px;
 }
 
-.SignupButton{
+.SignupButton {
+  margin-top: 20px;
   display: flex;
   padding: 5px 20px;
   justify-content: center;
   align-items: center;
   border-radius: 10px;
   border: 2px solid var(--Buttons-Secondary, #FAFAFA);
+}
+
+/* Tablet */
+@media screen and (max-width: 1024px) {
+  .SignupTitle {
+    font-size: 24px;
+  }
+  .SignupDescription {
+    font-size: 14px;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 768px) {
+  .SignupTitle {
+    font-size: 20px;
+  }
+  .SignupDescription {
+    font-size: 14px;
+    padding: 0 10px;
+  }
+  .SignupButton {
+    padding: 5px 15px;
+    width: 80%;
+  }
 }

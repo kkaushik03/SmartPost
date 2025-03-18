@@ -58,3 +58,43 @@
   max-width: 100%;
   height: auto;
 }
+
+/* Tablet */
+@media screen and (max-width: 1024px) {
+  .Title h1 {
+    font-size: 36px;
+  }
+  .TitleInfo p {
+    font-size: 16px;
+  }
+  .hero-ai_image img {
+    width: auto;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 768px) {
+  .Title {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+  .Title h1 {
+    font-size: 28px;
+    display: flex;
+    flex-direction: column;
+  }
+  .TitleInfo p {
+    font-size: 14px;
+    padding: 0 10px;
+  }
+  .StartHere {
+    width: 80%;
+  }
+  .hero-ai_image {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  .hero-ai_image img {
+    width: 100%;
+  }
+}

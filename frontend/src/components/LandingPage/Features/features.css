@@ -1,4 +1,3 @@
-
 .featurecontainer {
   margin-top: 150px;
   display: flex;
@@ -24,6 +23,7 @@
   color: #A7A0F8;
   margin-bottom: 10px;
   font-size: 15px;
+  display: block; 
 }
 
 .FeatureTitleOne, .FeatureTitleTwo {
@@ -35,6 +35,19 @@
 .FeatureDescriptionOne, .FeatureDescriptionTwo {
   color: #696f79;
   margin-bottom: 15px;
+  font-size: 16px;
+}
+
+.FeatureListOne, .FeatureListTwo {
+  list-style-type: disc; 
+  padding-left: 20px; 
+  margin: 0; 
+  text-align: left; 
+}
+
+.FeatureListOne li, .FeatureListTwo li {
+  margin-bottom: 10px; 
+  font-size: 16px;
 }
 
 .ImageFeatureOne, .ImageFeatureTwo {
@@ -47,4 +60,74 @@
 .ImageFeatureOne img, .ImageFeatureTwo img {
   max-width: 100%;
   height: auto;
+  width: 500px; 
+}
+
+/* Tablet */
+@media screen and (max-width: 1024px) {
+  .featurecontainer {
+    padding: 0 10%;
+  }
+  .ZoneOne, .ZoneTwo {
+    flex-direction: column;
+    gap: 30px;
+  }
+  .feature-content {
+    max-width: 100%;
+    margin-left: 0;
+    text-align: center; 
+  }
+  .FeatureTitleOne, .FeatureTitleTwo {
+    font-size: 28px;
+  }
+  .FeatureDescriptionOne, .FeatureDescriptionTwo {
+    font-size: 14px;
+  }
+  .FeatureListOne, .FeatureListTwo {
+    padding-left: 15px; 
+    margin: 0 auto; 
+    display: inline-block;
+    text-align: left; 
+  }
+  .FeatureListOne li, .FeatureListTwo li {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+  .ImageFeatureOne, .ImageFeatureTwo {
+    flex: 1;
+  }
+  .ImageFeatureOne img, .ImageFeatureTwo img {
+    width: auto;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 768px) {
+  .featurecontainer {
+    margin-top: 50px;
+    gap: 50px;
+    padding: 0 5%;
+  }
+  .FeatureTitleOne, .FeatureTitleTwo {
+    font-size: 24px;
+  }
+  .AiFeatureOne, .AiFeatureTwo {
+    font-size: 14px;
+  }
+  .FeatureDescriptionOne, .FeatureDescriptionTwo {
+    font-size: 14px;
+  }
+  .FeatureListOne, .FeatureListTwo {
+    padding-left: 10px; 
+    margin: 0 auto;
+    display: inline-block;
+    text-align: left;
+  }
+  .FeatureListOne li, .FeatureListTwo li {
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+  .ImageFeatureOne img, .ImageFeatureTwo img {
+    width: 100%;
+  }
 }

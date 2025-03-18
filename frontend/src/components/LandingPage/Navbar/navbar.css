@@ -49,7 +49,6 @@ button:hover {
   line-height: normal;
 }
 
-
 .get-started {
   display: inline-flex;
   height: 24px;
@@ -61,4 +60,45 @@ button:hover {
   border-radius: 8px;
   background: var(--Text-Gradient, linear-gradient(90deg, #7468FC -26.21%, #A7A0F8 8.68%, #A7A0F8 80.18%, #847EC8 116.78%));
   margin-left: 2rem;
+}
+
+/* Tablet */
+@media screen and (max-width: 1024px) {
+  .navbar .nav-links {
+    width: 400px;
+    gap: 30px;
+    padding: 15px;
+  }
+  .title {
+    font-size: 20px;
+  }
+  button {
+    font-size: 14px;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    gap: 15px;
+    padding: 1rem;
+  }
+  .navbar .nav-links {
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 10px;
+  }
+  .get-started {
+    margin-left: 0;
+    width: 100%;
+    text-align: center;
+  }
+  .logo img {
+    width: 25px;
+  }
+  .title {
+    font-size: 18px;
+  }
 }
