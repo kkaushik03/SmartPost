@@ -118,6 +118,14 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+.fileupload-queued-file span {
+    flex: 1;
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    margin-right: 10px; 
+}
+
 .fileupload-cancel-icon {
     cursor: pointer;
     background-color: #483EA8;
@@ -164,6 +172,14 @@
     color: #333;
 }
 
+.fileupload-uploaded-file span {
+    flex: 1;
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    margin-right: 10px; 
+}
+
 .fileupload-uploaded-info {
     display: flex;
     align-items: center;
@@ -195,7 +211,7 @@
     border-radius: 5px;
     margin-top: 10px;
     overflow: hidden;
-    }
+}
 
 .progress-bar {
     height: 100%;

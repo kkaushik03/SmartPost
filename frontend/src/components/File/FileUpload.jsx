@@ -288,7 +288,7 @@ const FileUpload = () => {
         )}  
 
         {/* Progress Circle */}
-        {uploading && (
+        {/* {uploading && (
           <div className="progress-circle-container">
             <svg className="progress-circle" viewBox="0 0 100 100">
               <circle className="progress-background" cx="50" cy="50" r="45" />
@@ -305,14 +305,14 @@ const FileUpload = () => {
               </text>
             </svg>
           </div>
-        )}
+        )} */}
 
         <button
           className="fileupload-button"
           onClick={uploadingProgress}
           disabled={uploading || filesUpload.length === 0 || filesUploaded.length >= 5}
         >
-          {uploading ? `Generating report... ${progress}%` : "Upload File"}
+          {uploading ? `Generating report...` : "Upload File"}
         </button> 
       </div>
     </div>

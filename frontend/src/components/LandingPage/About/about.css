@@ -27,10 +27,11 @@
 
 .about-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(350px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   margin: auto;
   gap: 32px;
   padding: 0 10px;
+  max-width: 100%;
 }
 
 .about-card {
@@ -69,6 +70,7 @@
   }
   .about-card {
     padding: 30px 12px;
+    max-width: 100%;
   }
 }
 
