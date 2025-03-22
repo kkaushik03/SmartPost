@@ -4,10 +4,12 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 0 15%;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 
 .ZoneOne, .ZoneTwo {
+  margin-top: 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -43,7 +45,7 @@
 .FeatureListOne, .FeatureListTwo {
   list-style-type: disc; 
   padding-left: 20px; 
-  margin: 0; 
+  margin-inline: 10px; 
   text-align: left; 
 }
 
