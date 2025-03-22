@@ -10,24 +10,21 @@
   display: flex;
   justify-content: center;
   margin-top: 50px;
-  margin-bottom: 50px;
 }
 
 .TitleInfo{
   text-align: center;
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .StartHere{
   display: flex;
-  width: 260px;
-  height: 48px;
-  padding: 8px 16px;
+  width: auto;
+  height: auto;
   justify-content: center;
   align-items: center;
-  gap: 10px;
   border-radius: 8px;
   background: linear-gradient(90deg, #7468FC -26.21%, #A7A0F8 37.83%, #A7A0F8 66.74%, #7468FC 116.78%);
 }
@@ -49,13 +46,9 @@
   line-height: normal;
 }
 
-.hero-ai_image {
-  margin-top: 40px;
-  margin-bottom: 40px;
-}
 
 .hero-ai_image img {
-  max-width: 100%;
+  max-width: 75%;
   height: auto;
 }
 
@@ -81,7 +74,6 @@
   .Title h1 {
     font-size: 28px;
     display: flex;
-    flex-direction: column;
   }
   .TitleInfo p {
     font-size: 14px;

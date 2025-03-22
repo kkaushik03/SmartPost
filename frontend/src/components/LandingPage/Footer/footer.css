@@ -6,7 +6,7 @@
 .footer-content {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: flex-end;
   gap: 40px;
   flex-wrap: wrap;
   border-bottom: 1.5px solid var(--Typography-Gray-Dark-Gray, #696F79);
@@ -23,14 +23,14 @@
 
 .footer-links {
   display: flex;
-  gap: 40px;
+  gap: 90px;
   flex-wrap: wrap;
 }
 
 .footer-column {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .footer-column h4 {

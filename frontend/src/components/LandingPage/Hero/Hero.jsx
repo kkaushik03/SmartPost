@@ -12,7 +12,7 @@ const Hero = () => {
     <div className="hero-container">
       <div className="Title">
         <h1>
-          <span>Refactor.</span> <span>Optimize.</span> <span>Elevate </span>
+          <span>Refactor. </span> <span>Optimize. </span> <span>Elevate</span>
         </h1>
       </div>
 

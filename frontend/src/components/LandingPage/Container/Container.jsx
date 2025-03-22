@@ -4,7 +4,7 @@ import "./container.css";
 const Container = () => {
   return (
     <div className="thecontainer">
-      <div className="SignupTitle">
+      {/* <div className="SignupTitle">
         <h2>Sign up!</h2>
       </div>
       <div className="SignupDescription">
@@ -14,7 +14,7 @@ const Container = () => {
           Stories, Exchange Tips, And Discover New Ways To Maximize Your Ai-Con
           Experience.
         </p>
-      </div>
+      </div> */}
       <div className="SignupButton">
         <button>Join Community</button>
       </div>

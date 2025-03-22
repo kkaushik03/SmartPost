@@ -1,17 +1,17 @@
-import './App.css'
-import NavBar from './components/LandingPage/Navbar/Navbar'
-import About from './components/LandingPage/About/About'
-import Hero from './components/LandingPage/Hero/Hero'
-import Features from './components/LandingPage/Features/Features'
-import Faq from './components/LandingPage/FAQ/Faq'
-import Container from './components/LandingPage/Container/Container'
-import Footer from './components/LandingPage/Footer/Footer'
-import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
-import Login from './components/Login/Login'
-import Signup from './components/Signup/Signup'
-import Chatbot from './components/Chatbot/Chatbot'
-import FileUpload from './components/File/FileUpload'
-import Starfield from './components/Starfield/Starfield'
+import './App.css';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+import NavBar from './components/LandingPage/Navbar/Navbar';
+import About from './components/LandingPage/About/About';
+import Hero from './components/LandingPage/Hero/Hero';
+import Features from './components/LandingPage/Features/Features';
+import Faq from './components/LandingPage/FAQ/Faq';
+import Container from './components/LandingPage/Container/Container';
+import Footer from './components/LandingPage/Footer/Footer';
+import Login from './components/Login/Login';
+import Signup from './components/Signup/Signup';
+import FileUpload from './components/File/FileUpload';
+import Starfield from './components/Starfield/Starfield';
 
 function App() {
   return (
@@ -23,8 +23,17 @@ function App() {
 }
 
 function MainLayout() {
-  const location = useLocation(); 
-  const hideOnPages = ["/login", "/signup", "/fileupload"];
+  const location = useLocation();
+  const hideOnPages = ['/login', '/signup', '/fileupload'];
+
+  useEffect(() => {
+    if (location.hash) {
+      const element = document.getElementById(location.hash.substring(1));
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [location]);
 
   return (
     <div className="app-wrapper">
@@ -35,16 +44,15 @@ function MainLayout() {
           <Route path="/" element={
             <>
               <Hero />
-              <About />
               <Features />
-              <Faq />
+              <About />
+              <Faq id="faq" />
               <Container />
             </>
           } />
-
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/fileupload" element={<FileUpload/>}/>
+          <Route path="/fileupload" element={<FileUpload />} />
         </Routes>
       </div>
 
