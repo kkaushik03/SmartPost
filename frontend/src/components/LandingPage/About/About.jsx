@@ -15,7 +15,7 @@ const about = [
     description:
       "I’m Khushi Kaushik, Project Manager at CodeTech, leading AI/ML efforts and soon pursuing my CS Master’s at UCSD.",
     linkedin: "https://www.linkedin.com/in/alyssa-amancio-860b08296/",
-  }
+  },
   {
     image: "trang.jpg",
     title: "Trang Ngo",
