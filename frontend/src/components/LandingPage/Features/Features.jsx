@@ -8,13 +8,14 @@ const Features = () => {
     <section id="features" className="featurecontainer">
       <div className="ZoneOne">
         <div className="feature-content">
-          <span className="AiFeatureOne">AI Features</span>
-          <h2 className="FeatureTitleOne">Title</h2>
-          <p className="FeatureDescriptionOne">Description</p>
+          {/* <span className="AiFeatureOne">AI Features</span> */}
+          <h2 className="FeatureTitleOne">Automated Code Grading</h2>
+          <p className="FeatureDescriptionOne">Revolutionize your code reviews with AI-powered evaluations.
+          </p>
           <ul className="FeatureListOne">
-            <li>Feature</li>
-            <li>Feature</li>
-            <li>Feature</li>
+            <li>Assesses code on critical metrics: Correctness, Efficiency, Readability, Style, Security, and Fragility</li>
+            <li>Produces a sleek, professional HTML report with clear letter grades and actionable insights</li>
+            <li>Empowers rapid improvements and maintains high-quality code standards</li>
           </ul>
         </div>
         <div className="ImageFeatureOne">
@@ -24,13 +25,14 @@ const Features = () => {
 
       <div className="ZoneTwo">
         <div className="feature-content">
-          <span className="AiFeatureTwo">AI Features</span>
-          <h2 className="FeatureTitleTwo">Title</h2>
-          <p className="FeatureDescriptionTwo">Description</p>
+          {/* <span className="AiFeatureTwo">AI Features</span> */}
+          <h2 className="FeatureTitleTwo">Seamless File Upload & Validation</h2>
+          <p className="FeatureDescriptionTwo">Ensure secure, efficient, and error-free code submissions.
+          </p>
           <ul className="FeatureListTwo">
-            <li>Feature</li>
-            <li>Feature</li>
-            <li>Feature</li>
+            <li>Accepts multiple file formats with robust validation</li>
+            <li>Provides instant, clear feedback for unsupported or missing files</li>
+            <li>Built on a production-grade framework for reliability and smooth performance</li>
           </ul>
         </div>
         <div className="ImageFeatureTwo">
