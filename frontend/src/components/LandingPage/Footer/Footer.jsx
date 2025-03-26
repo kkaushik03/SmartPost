@@ -21,9 +21,25 @@ const Footer = () => {
           </div>
 
           <div className="footer-column">
-            <h4>Company</h4>
-            <a href="/privacy_policy">Privacy Policy</a>
-            <a href="/terms_conditions">Terms and Conditions</a>
+            <h4>Special Thanks to</h4>
+            <a
+              href="https://www.fullerton.edu"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit California State University, Fullerton website"
+              title="California State University, Fullerton"
+            >
+              CSUF
+            </a>
+            <a
+              href="https://www.fullerton.edu/ecs"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit College of Engineering and Computer Science website"
+              title="College of Engineering and Computer Science"
+            >
+              ECS
+            </a>
           </div>
 
           <div className="footer-column">
@@ -35,9 +51,9 @@ const Footer = () => {
 
       <div className="footer-bottom">
         <p>Copyright © {currentYear}. All rights reserved</p>
-        <div className="footer-socials">
+        {/* <div className="footer-socials">
           <button>CodeTech Community</button>
-        </div>
+        </div> */}
       </div>
     </footer>
   );

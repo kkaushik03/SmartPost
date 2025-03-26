@@ -16,9 +16,9 @@
   padding: 20px;
   justify-content: center;
   align-items: center;
-  gap: 280px;
-  font-weight: 400;
-  font-size: large; 
+  gap: 150px;
+  font-weight: bold;
+  font-size: 20px; 
   /* border-radius: 50px; */
   /* background-color: white; */
   /* border: 2px solid var(--Glass-Morphism-Glass-Stroke, rgba(134, 146, 166, 0.20)); */

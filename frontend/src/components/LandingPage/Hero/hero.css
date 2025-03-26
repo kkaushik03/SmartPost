@@ -9,14 +9,16 @@
   text-align: center;
   display: flex;
   justify-content: center;
-  margin-top: 50px;
+  margin-top: 20px;
+  font-size: 25px;
 }
 
 .TitleInfo{
   text-align: center;
   display: flex;
   justify-content: center;
-  margin-bottom: 10px;
+  margin-top: 10px;
+  margin-bottom: 15px;
 }
 
 .StartHere{
@@ -34,7 +36,7 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 .credit-card-note {
@@ -69,7 +71,7 @@
 @media screen and (max-width: 768px) {
   .Title {
     margin-top: 30px;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
   }
   .Title h1 {
     font-size: 28px;
@@ -84,7 +86,6 @@
   }
   .hero-ai_image {
     margin-top: 20px;
-    margin-bottom: 20px;
   }
   .hero-ai_image img {
     width: 100%;

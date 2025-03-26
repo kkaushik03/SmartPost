@@ -27,7 +27,7 @@ const Navbar = () => {
           <button onClick={() => scrollToSection("features")}>Features</button>
         </div>
 
-        <button className="get-started" onClick={() => navigate("/signup")}>Get Started</button>
+        <button className="get-started" onClick={() => navigate("/fileupload")}>Get Started</button>
       </nav>
     </div>
   );
