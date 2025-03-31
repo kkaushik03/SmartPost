@@ -2,11 +2,12 @@ import React from "react";
 import "./about.css";
 import Alyssa from "../../../assets/About/Alyssa.png";
 import Trang from "../../../assets/About/Trang.png";
+import Khushi from "../../../assets/About/Khushi.png";
 import { FaLinkedin, FaGithub, FaEnvelope  } from "react-icons/fa";
 
 const about = [
   {
-    image: "khushi.jpg",
+    image: Khushi,
     title: "Khushi Kaushik",
     description:
       "I’m Khushi Kaushik, Project Manager at CodeTech, leading AI/ML efforts and soon pursuing my CS Master’s at UCSD.",
