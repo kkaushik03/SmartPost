@@ -12,6 +12,7 @@
     "react-markdown": "^10.0.0",
     "react-router-dom": "^7.1.5",
     "react-scripts": "5.0.1",
+    "react-toastify": "^11.0.5",
     "remark-gfm": "^4.0.1",
     "starfield": "^0.0.1",
     "three": "^0.174.0"

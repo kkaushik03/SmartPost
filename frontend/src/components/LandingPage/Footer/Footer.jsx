@@ -45,6 +45,15 @@ const Footer = () => {
           <div className="footer-column">
             <h4>Others</h4>
             <a href="/#faq">FAQs</a>
+            <a
+              href="https://forms.gle/uXx2ZKfZ4ZgXDDiQ8"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Submit feedback through Google Form"
+              title="Feedback Form"
+            >
+              Feedback
+            </a>
           </div>
         </div>
       </div>
