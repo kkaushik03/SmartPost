@@ -16,7 +16,7 @@ const about = [
     email: "mailto:Khushi.kaushik.2506@gmail.com",
   },
   {
-    image: Alyssa,
+    image: "https://i.imgur.com/Bzkr4Y5.jpeg",
     title: "Alyssa Amancio",
     description:
       "Hello! My name is Alyssa Amancio, I have in interest in web design and desire to pursue it through front-end engineering.",
