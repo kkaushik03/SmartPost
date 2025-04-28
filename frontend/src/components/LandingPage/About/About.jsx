@@ -10,7 +10,7 @@ const about = [
     linkedin: "https://www.linkedin.com/in/khushikaushik2506",
   },
   {
-    image: "alyssa.jpg",
+    image: "https://i.imgur.com/Bzkr4Y5.jpeg",
     title: "Alyssa Amancio",
     description:
       "I’m Khushi Kaushik, Project Manager at CodeTech, leading AI/ML efforts and soon pursuing my CS Master’s at UCSD.",
