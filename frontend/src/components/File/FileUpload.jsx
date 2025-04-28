@@ -287,26 +287,6 @@ const FileUpload = () => {
           </div>
         )}  
 
-        {/* Progress Circle */}
-        {/* {uploading && (
-          <div className="progress-circle-container">
-            <svg className="progress-circle" viewBox="0 0 100 100">
-              <circle className="progress-background" cx="50" cy="50" r="45" />
-              <circle
-                className="progress-bar"
-                cx="50"
-                cy="50"
-                r="45"
-                strokeDasharray="282.74"
-                strokeDashoffset={282.74 - (progress / 100) * 282.74}
-              />
-              <text x="50" y="55" textAnchor="middle" className="progress-text">
-                {progress}%
-              </text>
-            </svg>
-          </div>
-        )} */}
-
         <button
           className="fileupload-button"
           onClick={uploadingProgress}

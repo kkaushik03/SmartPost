@@ -15,9 +15,9 @@ const Container = () => {
           Experience.
         </p>
       </div> */}
-      <div className="SignupButton">
+      {/* <div className="SignupButton">
         <button>Join Community</button>
-      </div>
+      </div> */}
     </div>
   );
 };

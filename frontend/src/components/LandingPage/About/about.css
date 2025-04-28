@@ -55,6 +55,7 @@
 
 .about-image img {
   width: 150px;
+  height: 150px;
   border-radius: 10px;
   object-fit: cover;
   flex-shrink: 0;
@@ -75,6 +76,11 @@
   line-height: 1.4;
 }
 
+.social-links {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px; 
+}
 .about-text a {
   font-size: 14px;
   color: #A7A0F8;
@@ -114,9 +120,14 @@
     text-align: center;
   }
   .about-image img {
+    width: 120px;
+    height: 120px;
     margin-bottom: 12px;
   }
   .about-text {
     text-align: center;
+  }
+  .social-links {
+    justify-content: center;
   }
 }
